@@ -11,11 +11,11 @@ class Pagehome extends StatefulWidget {
   State<Pagehome> createState() => _PagehomeState();
 }
 
-String data01 = '';
-int counter = 0;
-
 class _PagehomeState extends State<Pagehome> {
   final TextEditingController _controller = TextEditingController();
+
+  List<String> l1 = [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,12 +30,12 @@ class _PagehomeState extends State<Pagehome> {
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[850]),
+                    color: Colors.transparent),
                 child: Center(
                   child: Text("P O S T  A  N O T E !",
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 16, 16, 16),
                       )),
                 ),
               ),
@@ -44,14 +44,12 @@ class _PagehomeState extends State<Pagehome> {
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
-                itemCount: counter,
+                itemCount: l1.length,
                 itemBuilder: (context, index) {
-                  return note(data01: _controller.text);
+                  return note(data01: l1[index]);
                 },
               ),
             )),
-
-            // Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -60,16 +58,15 @@ class _PagehomeState extends State<Pagehome> {
                     margin: EdgeInsets.only(left: 10),
                     padding: EdgeInsets.only(left: 10),
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(118, 96, 94, 90),
+                        color: const Color.fromARGB(16, 96, 94, 90),
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
                       controller: _controller,
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
                       decoration: InputDecoration(
-                        hintText: 'ADD NOTE !',
+                        hintText: 'Add Note !',
                         border: InputBorder.none,
                         hintStyle: TextStyle(
                           fontSize: 18,
@@ -80,9 +77,12 @@ class _PagehomeState extends State<Pagehome> {
                 ),
                 MyButtton(
                   Function: () {
-                    setState(() {
-                      counter++;
-                    });
+                    if (_controller.text.isNotEmpty) {
+                      setState(() {
+                        l1.add(_controller.text);
+                      });
+                      _controller.clear();
+                    }
                   },
                 )
               ],

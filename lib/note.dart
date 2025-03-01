@@ -17,7 +17,14 @@ class note extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(data01), Icon(Icons.delete)],
+          children: [
+            Text(data01),
+           GestureDetector(
+            onTap: (){
+              
+            },
+            child: Icon(Icons.check_box_outline_blank_sharp,size: 20,)),
+           ],
         ));
   }
 }
